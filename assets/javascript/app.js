@@ -8,10 +8,9 @@ $(document).ready(function(){
 
   //  Click events are done for us:
   $(".container").hide();
-  $("#stop").click(trivia.stop);
-  $("#reset").click(trivia.reset);
   $("#display").click(trivia.start);
   $("#display").click(trivia.questions);
+
   trivia.userGuess();
 });
 //  Variable that will hold our setInterval that runs the trivia
@@ -33,19 +32,17 @@ var trivia = {
   time: 60,
   remaining: 0,
 
-  reset: function() {
-    clearInterval(counter);
-    $("#scoreboard").html("<p>Wins: " + winCount + "</p>" + "<p>Losses: " + lossCount + "</p>" + "<p>Remaining: " + trivia.remaining + "</p>")
-    $(".container").hide();
-  },
+
 
   start: function() {
     trivia.time = 60;
+    winCount = 0;
+    lossCount = 0;
     //  TODO: Use setInterval to start the count here.
     counter = setInterval(trivia.count, 1000);
     $("#display").css("background", "rgb(90, 224, 247)");
     $(".container").show();
-
+    $("#scoreboard").html(" ");
   },
 
   questions: function() {
@@ -73,16 +70,8 @@ var trivia = {
       } else {
         trivia.scoreLoss();
         setTimeout(trivia.questions, 1000);
-        // $(this).prop('checked', false);
       }
     });
-  },
-
-  stop: function() {
-
-    //  TODO: Use clearInterval to stop the count here.
-
-
   },
 
   scoreWin: function() {
@@ -101,25 +90,26 @@ var trivia = {
 
   count: function() {
 
-    //  TODO: increment time by 1, remember we cant use "this" here.
+
     trivia.time--;
 
-    if(trivia.time < 55) {
+    if(trivia.time < 1) {
       trivia.reset();
-      console.log("finish");
+      $('#display').html("Click here to restart");
+    } else {
+      var converted = trivia.timeConverter(trivia.time);
+      $('#display').html(converted);
     }
-
-    //  TODO: Get the current time, pass that into the trivia.timeConverter function,
-    //        and save the result in a variable.
-
-    var converted = trivia.timeConverter(trivia.time);
-
-    //  TODO: Use the variable you just created to show the converted time in the "display" div.
-    $('#display').html(converted);
   },
 
-  //  THIS FUNCTION IS DONE FOR US!
-  //  We do not need to touch it.
+  reset: function() {
+    clearInterval(counter);
+    $("#scoreboard").html("<p>Wins: " + winCount + "</p>" + "<p>Losses: " + lossCount + "</p>" + "<p>Remaining: " + trivia.remaining + "</p>")
+    $(".container").hide();
+    $("#display").html("Click here to restart");
+
+  },
+
 
   timeConverter: function(t) {
 
