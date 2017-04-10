@@ -1,40 +1,39 @@
-/*body {
-  background: rgb(0, 0, 0);
-}*/
+body {
+  background: rgba(55, 210, 236, 0.31);
+}
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 10px;
+  grid-template-columns: 200px 200px;
+  grid-template-rows: 150px 200px;
+  grid-row-gap: 3px;
   font-family: helvetica;
 
 }
 
 .wrapper div {
   border-radius: 7px;
-  padding-top: 5em;
-  padding-bottom: 5em;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 #one {
   background: rgb(25, 187, 230);
 }
 
-#two {
-  background: rgb(184, 34, 237);
-}
-
-#three {
-  background: rgb(29, 235, 38);
-}
-
-#four{
-  background: rgb(232, 162, 27);
+#myForm {
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(230, 52, 86);
 }
 
 #display{
   /*background: blue;*/
+  font-family: 'Montserrat', sans-serif;
+}
+
+#scoreboard {
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(49, 59, 190);
 }
 
 #questions{

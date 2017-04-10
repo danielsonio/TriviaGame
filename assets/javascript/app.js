@@ -1,19 +1,19 @@
-//  Interval Exercise (follow the instructions below).
+
 var j = 0;
 var newbackground;
 var winCount = 0;
 var lossCount = 0;
-//  This code will run as soon as the page loads.
+
 $(document).ready(function(){
 
-  //  Click events are done for us:
+
   $(".container").hide();
   $("#display").click(trivia.start);
   $("#display").click(trivia.questions);
 
   trivia.userGuess();
 });
-//  Variable that will hold our setInterval that runs the trivia
+
 
 var colors = [
   ["rgb(180, 150, 8)", "rgb(133, 223, 255)", "rgb(29, 235, 38)", "rgb(193, 227, 148)"],
@@ -26,7 +26,7 @@ var colors = [
   ["rgb(37, 201, 7)", "rgb(87, 119, 235)", "rgb(157, 10, 98)", "rgb(11, 63, 124)"]
 ];
 
-//  Our trivia object.
+
 var trivia = {
 
   time: 60,
@@ -35,27 +35,35 @@ var trivia = {
 
 
   start: function() {
+    j = 0;
     trivia.time = 60;
     winCount = 0;
     lossCount = 0;
-    //  TODO: Use setInterval to start the count here.
+    trivia.remaining = colors.length - winCount - lossCount
     counter = setInterval(trivia.count, 1000);
-    $("#display").css("background", "rgb(90, 224, 247)");
+    $("#display").css("color", "rgb(219, 12, 235)");
     $(".container").show();
     $("#scoreboard").html(" ");
   },
 
   questions: function() {
-    for(var i = 0; i < colors[j].length; i++) {
-      $("#radio_"+[i+1]).text(colors[j][i]);
-      $("#radio"+[i+1]).attr("value", colors[j][i]);
-    };
-    newbackground = colors[j][Math.floor((Math.random() * 4))];
-    $("#one").css("background", newbackground);
-    $("#scoreboard").html(" ");
-    $('#myForm input').prop('checked', false);
-    console.log(newbackground);
-    j++
+
+      if(trivia.remaining===0){
+        trivia.reset();
+      } else {
+        for(var i = 0; i < colors[j].length; i++) {
+          $("#radio_"+[i+1]).text(colors[j][i]);
+          $("#radio"+[i+1]).attr("value", colors[j][i]);
+        }
+        newbackground = colors[j][Math.floor((Math.random() * 4))];
+        $("#one").css("background", newbackground);
+        $("#scoreboard").html(" ");
+        $('#myForm input').prop('checked', false);
+        console.log(newbackground);
+        j++
+      }
+
+
   },
 
   userGuess: function() {
@@ -69,24 +77,23 @@ var trivia = {
 
       } else {
         trivia.scoreLoss();
-        setTimeout(trivia.questions, 1000);
+        setTimeout(trivia.questions, 2000);
       }
     });
   },
 
   scoreWin: function() {
-    $("#scoreboard").html("<p>Great job!</p>");
+    $("#scoreboard").html("<p>You got it!</p>");
     winCount++;
     trivia.remaining = colors.length - winCount - lossCount,
     console.log("Wins: " + winCount + " || Losses: " + lossCount + "|| Remaining: " + trivia.remaining);
   },
   scoreLoss: function() {
-    $("#scoreboard").html("<p>Incorrect</p>");
+    $("#scoreboard").html("<p>Nope, it was: " + newbackground + "</p>");
     lossCount++;
     trivia.remaining = colors.length - winCount - lossCount,
     console.log("Wins: " + winCount + " || Losses: " + lossCount + "|| Remaining: " + trivia.remaining);
   },
-
 
   count: function() {
 
@@ -98,13 +105,13 @@ var trivia = {
       $('#display').html("Click here to restart");
     } else {
       var converted = trivia.timeConverter(trivia.time);
-      $('#display').html(converted);
+      $('#display').html("Time remaining: " + converted);
     }
   },
 
   reset: function() {
     clearInterval(counter);
-    $("#scoreboard").html("<p>Wins: " + winCount + "</p>" + "<p>Losses: " + lossCount + "</p>" + "<p>Remaining: " + trivia.remaining + "</p>")
+    $("#scoreboard").html("<p>Correct Answers: " + winCount + "</p>" + "<p>Incorrect Answers: " + lossCount + "</p>" + "<p>Unanswered: " + trivia.remaining + "</p>")
     $(".container").hide();
     $("#display").html("Click here to restart");
 
