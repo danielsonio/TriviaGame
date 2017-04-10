@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 var colors = [["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"],
 ["rgb(78, 32, 193)", "rgb(184, 34, 237)", "rgb(199, 19, 19)", "rgb(131, 200, 52)"],
-["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"]];
+["rgb(80, 66, 171)", "rgb(227, 47, 124)", "rgb(79, 226, 240)", "rgb(249, 193, 70)"]];
 
 //  Our trivia object.
 var trivia = {
@@ -26,7 +26,6 @@ var trivia = {
   reset: function() {
 
     trivia.time = 180;
-    trivia.lap = 1;
 
     //  TODO: Change the "display" div to "00:00."
     $('#display').html('03:00');
@@ -47,8 +46,9 @@ var trivia = {
       $("#radio_"+[i+1]).text(colors[j][i]);
       $("#radio"+[i+1]).attr("value", colors[j][i]);
     };
-    newbackground = colors[j][Math.floor((Math.random() * 4) + 1)];
+    newbackground = colors[j][Math.floor((Math.random() * 4))];
     $("#one").css("background", newbackground);
+    console.log(newbackground);
     j++
   },
 
@@ -60,6 +60,7 @@ var trivia = {
       if(guessValue == newbackground) {
         alert("We're getting there!");
         trivia.questions();
+        $(this).prop('checked', false);
       }
     });
   },
