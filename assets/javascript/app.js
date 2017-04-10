@@ -1,5 +1,5 @@
 //  Interval Exercise (follow the instructions below).
-
+    var j = 0;
 //  This code will run as soon as the page loads.
 $(document).ready(function(){
 
@@ -9,11 +9,12 @@ $(document).ready(function(){
   $("#reset").click(trivia.reset);
   $("#display").click(trivia.start);
   $("#display").click(trivia.questions);
-
+  trivia.userGuess();
 });
 //  Variable that will hold our setInterval that runs the trivia
 
-var colors = ["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"];
+var colors = [["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"],
+["rgb(78, 32, 193)", "rgb(184, 34, 237)", "rgb(199, 19, 19)", "rgb(131, 200, 52)"]];
 
 //  Our trivia object.
 var trivia = {
@@ -40,14 +41,24 @@ var trivia = {
   },
 
   questions: function() {
-    for(var i = 0; i < colors.length; i++) {
-      $("#radio_"+[i+1]).text(colors[i]);
-    }
-    var guessValue = $('input[name=optradio]:checked', '#myForm').val();
 
+    for(var i = 0; i < colors[j].length; i++) {
+      $("#radio_"+[i+1]).text(colors[j][i]);
+    }
+    j++
+  },
+
+  userGuess: function() {
     $('#myForm input').on('click', function() {
-       alert($('input[name=optradio:checked', '#myForm').val());
+      var guessValue = $('input[name=radioName]:checked', '#myForm').val();
+      console.log(guessValue);
+
+      if(guessValue == 1) {
+        alert("We're getting there!");
+        trivia.questions();
+      }
     });
+
   },
 
   stop: function() {
