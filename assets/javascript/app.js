@@ -1,5 +1,6 @@
 //  Interval Exercise (follow the instructions below).
-    var j = 0;
+var j = 0;
+var newbackground;
 //  This code will run as soon as the page loads.
 $(document).ready(function(){
 
@@ -14,7 +15,8 @@ $(document).ready(function(){
 //  Variable that will hold our setInterval that runs the trivia
 
 var colors = [["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"],
-["rgb(78, 32, 193)", "rgb(184, 34, 237)", "rgb(199, 19, 19)", "rgb(131, 200, 52)"]];
+["rgb(78, 32, 193)", "rgb(184, 34, 237)", "rgb(199, 19, 19)", "rgb(131, 200, 52)"],
+["rgb(25, 187, 230)", "rgb(184, 34, 237)", "rgb(29, 235, 38)", "rgb(232, 162, 27)"]];
 
 //  Our trivia object.
 var trivia = {
@@ -41,10 +43,12 @@ var trivia = {
   },
 
   questions: function() {
-
     for(var i = 0; i < colors[j].length; i++) {
       $("#radio_"+[i+1]).text(colors[j][i]);
-    }
+      $("#radio"+[i+1]).attr("value", colors[j][i]);
+    };
+    newbackground = colors[j][Math.floor((Math.random() * 4) + 1)];
+    $("#one").css("background", newbackground);
     j++
   },
 
@@ -53,12 +57,11 @@ var trivia = {
       var guessValue = $('input[name=radioName]:checked', '#myForm').val();
       console.log(guessValue);
 
-      if(guessValue == 1) {
+      if(guessValue == newbackground) {
         alert("We're getting there!");
         trivia.questions();
       }
     });
-
   },
 
   stop: function() {
