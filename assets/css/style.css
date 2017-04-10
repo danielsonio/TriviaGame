@@ -1,0 +1,42 @@
+/*body {
+  background: rgb(0, 0, 0);
+}*/
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
+  font-family: helvetica;
+
+}
+
+.wrapper div {
+  border-radius: 7px;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+#one {
+  background: rgb(25, 187, 230);
+}
+
+#two {
+  background: rgb(184, 34, 237);
+}
+
+#three {
+  background: rgb(29, 235, 38);
+}
+
+#four{
+  background: rgb(232, 162, 27);
+}
+
+#display{
+  /*background: blue;*/
+}
+
+#questions{
+  background: rgb(90, 224, 247);
+}
